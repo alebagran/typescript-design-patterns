@@ -4,6 +4,7 @@
   "description": "Design Patterns examples written in ts",
   "main": "index.js",
   "scripts": {
+    "decorator": "ts-node ./src/decorator/starbuzz",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/alebagran/typescript-design-patterns#readme",
   "dependencies": {
-    "tsc": "^1.20150623.0"
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
   }
 }
