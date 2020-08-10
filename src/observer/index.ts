@@ -11,7 +11,7 @@
 /**
 * Quem está sendo observado precisa manter uma lista de observadores para poder notificá-los
 * quando o observado receber um novo valor para seus dados. Sendo assim, o objeto que estiver sendo observado deve
-* implementar a interface Observado, com os seguintes métodos:
+* implementar a interface Observavel, com os seguintes métodos:
 * 
 * - registrar: O objeto a ser observado registra em sua lista de observadores um objeto que implemente a interface Observador.
 * - remover: O objeto a ser observado remove um observador de sua lista de observadores.
