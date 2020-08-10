@@ -1,9 +1,10 @@
 import Bevarage from "../Bevarage";
 
 export default class CondimentDecorador extends Bevarage {
-  private bevarage: Bevarage;
+
+  constructor (readonly bevarage: Bevarage) { super(); }
 
   public cost(): number {
-    return 0;
+    return this.bevarage.cost();
   }
 }
