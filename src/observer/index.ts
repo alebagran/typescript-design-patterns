@@ -104,7 +104,7 @@ class Carrinho implements Observavel {
   }
 
   remover(o: Observador): void {
-    this.observadores = this.observadores.filter(observador => observador === o);
+    this.observadores = this.observadores.filter(observador => observador !== o);
   }
 
   notificar(itens: ItemCarrinho[]): void {
@@ -125,7 +125,7 @@ class Carrinho implements Observavel {
   removerItem(i: ItemCarrinho): void {
     // Remove um item do carrinho e emite uma notificação a todos os
     // observadores, passando a lista atualizada de itens
-    this.itens = this.itens.filter(item => i === item);
+    this.itens = this.itens.filter(item => i !== item);
     this.notificar(this.itens);
   }
 
