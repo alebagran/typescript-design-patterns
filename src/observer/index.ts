@@ -13,9 +13,9 @@
 * quando o observado receber um novo valor para seus dados. Sendo assim, o objeto que estiver sendo observado deve
 * implementar a interface Observavel, com os seguintes métodos:
 * 
-* - registrar: O objeto a ser observado registra em sua lista de observadores um objeto que implemente a interface Observador.
-* - remover: O objeto a ser observado remove um observador de sua lista de observadores.
-* - notificar: O objeto a ser observado notifica suas mudanças de estado aos observadores registrados.
+* - registrar: O objeto observado registra em sua lista de observadores um objeto que implemente a interface Observador.
+* - remover: O objeto observado remove um observador de sua lista de observadores.
+* - notificar: O objeto observado notifica suas mudanças de estado aos observadores registrados.
 * 
 */
 
@@ -94,7 +94,7 @@ interface Observador{
 }
 
 // Definimos a classe para representar o estado do carrinho no código.
-// Esta será a classe a ser observada, portanto implementamos os métodos da interface Observavel
+// Esta classe representa o objeto observado, portanto implementamos os métodos da interface Observavel
 class Carrinho implements Observavel {
   private observadores: Observador[] = [];
   private itens: ItemCarrinho[] = [];
@@ -132,7 +132,7 @@ class Carrinho implements Observavel {
   // Outros métodos...
 }
 
-// Agora vamos criar os observadores do Carrinho
+// Agora vamos declarar os observadores do Carrinho
 
 // Começando pela parte da UI que lista os itens do carrinho
 class UIListagemCarrinho implements Observador {
