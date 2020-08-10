@@ -23,7 +23,7 @@
 interface Observavel{
   registrar(o: Observador);
   remover(o: Observador);
-  notificar();
+  notificar(parametros);
 }
 */
 
