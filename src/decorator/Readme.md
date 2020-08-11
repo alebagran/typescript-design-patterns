@@ -6,3 +6,7 @@
 
 * Esse padrão vai de encontro com os principios SOLID , na segunda letra "Open for 
 extension, but closed for modification". pois ele não altera o comportamento de nenhuma classe, ele adiciona a possibilidade de criar suas proprias classes para modificar o comportamento.
+
+* A Utilização de Decorators pode tornar a criação de objetos complexa, existem alguns padrões de projeto que auxiliam essa criação como Builder e Factory.
+
+* Decoradores devem ter conhecimento somente do objeto que eles englobam, é possivel alterar/acessar objetos fora da cadeia, porem o nao e a finalidade do decorator.
