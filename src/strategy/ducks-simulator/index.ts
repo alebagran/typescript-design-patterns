@@ -1,6 +1,7 @@
 import MallardDuck from "./MallardDuck";
 import RedHeadDuck from "./RedHeadDuck";
 import RubberDuck from "./RubberDuck";
+import DecoyDuck from "./DecoyDuck";
 
 console.clear();
 const mallard = new MallardDuck();
@@ -19,3 +20,9 @@ const rubberDuck = new RubberDuck();
 rubberDuck.display();
 rubberDuck.performFly();
 rubberDuck.performQuack();
+console.log("---------------------------------");
+
+const decoyDuck = new DecoyDuck();
+decoyDuck.display();
+decoyDuck.performFly();
+decoyDuck.performQuack();
