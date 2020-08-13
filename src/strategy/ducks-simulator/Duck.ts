@@ -2,16 +2,23 @@ import FlyBehavior from "./behaviors/fly-behaviors/Flybehavior";
 import QuackBehavior from "./behaviors/quack-behaviors/QuackBehavior";
 
 export default abstract class Duck {
-  private flyBehavior: FlyBehavior;
-  private quackBehavior: QuackBehavior;
+  protected flyBehavior: FlyBehavior;
+  protected quackBehavior: QuackBehavior;
 
-  abstract display(): void;
+  public abstract display(): void;
+  protected abstract defineFlyBehavior(): FlyBehavior;
+  protected abstract defineQuackBehavior(): QuackBehavior;
 
-  performFly(): void {
+  constructor() {
+    this.flyBehavior = this.defineFlyBehavior();
+    this.quackBehavior = this.defineQuackBehavior();
+  }
+
+  public performFly(): void {
     this.flyBehavior.fly();
   }
 
-  performQuack(): void {
+  public performQuack(): void {
     this.quackBehavior.quack();
   }
 }
