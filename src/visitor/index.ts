@@ -2,19 +2,19 @@
 // comportamentos a uma hierarquia de classes sem precisar alterar nenhum código"
 
 // As classes que precisam da funcionalidade do Visitor implementam uma interface
-// que possui o método receberVisitante (o nome do método usado normalmente é accept,
+// que possui o método receberVisita (o nome do método usado normalmente é accept,
 // mas aqui eu vou usar receberVisitando pois acho que fica mais claro), que receberá como
 // argumento um objeto que implementa a interface Visitante.
 
 /*
 interface Anfitriao {
-  receberVisitante(visitante: Visitante): void;
+  receberVisita(visitante: Visitante): void;
 }
 */
 
 // A interface visitante declara uma série de métodos, cada um correspondente
 // a um tipo de anfitrião. Cabe a cada anfitrião saber qual método do
-// visitante chamar quando recebê-lo através do método receberVisitante.
+// visitante chamar quando recebê-lo através do método receberVisita.
 
 /* 
 interface Visitante {
@@ -49,7 +49,7 @@ de exportação, um cuidando de cada formato: o ExportadorPDF e o ExportadoDOC.
 
 // Vamos declarar as interfaces Anfitriao e Visitante
 interface Anfitriao {
-  receberVisitante(visitante: Visitante): void;
+  receberVisita(visitante: Visitante): void;
 }
 
 // Na interface visitante, temos uma assinatura de método de visita para cada
@@ -93,7 +93,7 @@ class ExportadorDOC implements Visitante {
 class Pagina {
   private componentes: ComponentePagina[] = [];
 
-  adicionarComponente(componente: ComponentePagina) : void {
+  adicionarComponente(componente: ComponentePagina): void {
     this.componentes.push(componente);
   }
 
@@ -107,9 +107,9 @@ class Pagina {
 // A classe ComponentePagina é abstrata, pois ela classifica os
 // componentes filhos como sendo componentes de página. Ela implementa
 // a interface Anfitrião para que os filhos implementem o método
-// receberVisitante
+// receberVisita
 abstract class ComponentePagina implements Anfitriao {
-  receberVisitante(visitante: Visitante): void {}
+  receberVisita(visitante: Visitante): void { }
 }
 
 // Declaramos os filhos, que implementam a interface Anfitriao para
@@ -125,7 +125,7 @@ class ComponenteTexto extends ComponentePagina {
     this.texto = texto;
   }
 
-  receberVisitante(visitante: Visitante): void {
+  receberVisita(visitante: Visitante): void {
     visitante.visitarComponenteTexto(this);
   }
 
@@ -144,10 +144,10 @@ class ComponenteCodigoFonte extends ComponentePagina {
     this.codigo = codigo;
   }
 
-  receberVisitante(visitante: Visitante): void {
+  receberVisita(visitante: Visitante): void {
     visitante.visitarComponenteCodigoFonte(this);
   }
-  
+
   getCodigo(): string {
     return this.codigo;
   }
@@ -155,15 +155,15 @@ class ComponenteCodigoFonte extends ComponentePagina {
   // Outros métodos...
 }
 
-class ComponenteImagem extends ComponentePagina{
+class ComponenteImagem extends ComponentePagina {
   private source: string;
 
   constructor(source: string) {
     super();
     this.source = source;
   }
-  
-  receberVisitante(visitante: Visitante): void {
+
+  receberVisita(visitante: Visitante): void {
     visitante.visitarComponenteImagem(this);
   }
 
@@ -201,15 +201,13 @@ const exportadorPDF = new ExportadorPDF();
 
 const componentes = pagina.getComponentes();
 
-componentes.map(componente => {
-  componente.receberVisitante(exportadorPDF);
+componentes.map((componente: Anfitriao) => {
+  componente.receberVisita(exportadorPDF);
 });
-
-// Fazemos o mesmo se quisermos exportar em DOC
 
 // Repetimos o mesmo processo para exportar em DOC
 const exportadorDOC = new ExportadorDOC();
 
-componentes.map(componente => {
-  componente.receberVisitante(exportadorDOC);
+componentes.map((componente: Anfitriao) => {
+  componente.receberVisita(exportadorDOC);
 });
