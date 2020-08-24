@@ -47,13 +47,9 @@ demais aos componentes. É aí que entra o padrão Visitor. Nós podemos ter doi
 de exportação, um cuidando de cada formato: o ExportadorPDF e o ExportadoDOC.
 */
 
-// Vamos declarar as interfaces Anfitriao e Visitante
-interface Anfitriao {
-  receberVisita(visitante: Visitante): void;
-}
-
-// Na interface visitante, temos uma assinatura de método de visita para cada
-// tipo de componente da hierarquia
+// Vamos declarar a interface Visitante.
+// Nela, temos uma assinatura de método de visita
+// para cada tipo de componente de página
 interface Visitante {
   visitarComponenteTexto(componente: ComponenteTexto): void;
   visitarComponenteCodigoFonte(componente: ComponenteCodigoFonte): void;
@@ -63,29 +59,29 @@ interface Visitante {
 // Criamos os visitantes concretos
 class ExportadorPDF implements Visitante {
   visitarComponenteTexto(componente: ComponenteTexto): void {
-    console.log("Exportando Componente de Texto em PDF: ", componente.getTexto());
+    console.log("Exportando Componente de Texto em PDF: ", componente.getConteudo());
   }
 
   visitarComponenteCodigoFonte(componente: ComponenteCodigoFonte): void {
-    console.log("Exportando Componente de Código Fonte em PDF: ", componente.getCodigo());
+    console.log("Exportando Componente de Código Fonte em PDF: ", componente.getConteudo());
   }
 
   visitarComponenteImagem(componente: ComponenteImagem): void {
-    console.log("Exportando Componente de Imagem em PDF: ", componente.getSource());
+    console.log("Exportando Componente de Imagem em PDF: ", componente.getConteudo());
   }
 }
 
 class ExportadorDOC implements Visitante {
   visitarComponenteTexto(componente: ComponenteTexto): void {
-    console.log("Exportando Componente de Texto em DOC: ", componente.getTexto());
+    console.log("Exportando Componente de Texto em DOC: ", componente.getConteudo());
   }
 
   visitarComponenteCodigoFonte(componente: ComponenteCodigoFonte): void {
-    console.log("Exportando Componente de Código Fonte em DOC: ", componente.getCodigo());
+    console.log("Exportando Componente de Código Fonte em DOC: ", componente.getConteudo());
   }
 
   visitarComponenteImagem(componente: ComponenteImagem): void {
-    console.log("Exportando Componente de Imagem em DOC: ", componente.getSource());
+    console.log("Exportando Componente de Imagem em DOC: ", componente.getConteudo());
   }
 }
 
@@ -104,12 +100,12 @@ class Pagina {
   // outros métodos...
 }
 
-// A classe ComponentePagina é abstrata, pois ela classifica os
-// componentes filhos como sendo componentes de página. Ela implementa
-// a interface Anfitrião para que os filhos implementem o método
-// receberVisita
-abstract class ComponentePagina implements Anfitriao {
-  receberVisita(visitante: Visitante): void { }
+// A interface ComponentePagina contém o método receberVisita
+// para receber os visitantes que farão o trabalho de exportação
+// do conteúdo do componente
+interface ComponentePagina {
+  receberVisita(visitante: Visitante): void;
+  getConteudo(): string;
 }
 
 // Declaramos os filhos, que implementam a interface Anfitriao para
@@ -117,11 +113,10 @@ abstract class ComponentePagina implements Anfitriao {
 // correspondente que deve chamar do visitante.
 // Ao chamar o método do visitante,
 // o componente deve passar a si mesmo (this);
-class ComponenteTexto extends ComponentePagina {
+class ComponenteTexto implements ComponentePagina {
   private texto: string;
 
   constructor(texto: string) {
-    super();
     this.texto = texto;
   }
 
@@ -129,18 +124,17 @@ class ComponenteTexto extends ComponentePagina {
     visitante.visitarComponenteTexto(this);
   }
 
-  getTexto(): string {
+  getConteudo(): string {
     return this.texto;
   }
 
   // Outros métodos...
 }
 
-class ComponenteCodigoFonte extends ComponentePagina {
+class ComponenteCodigoFonte implements ComponentePagina {
   private codigo: string;
 
   constructor(codigo: string) {
-    super();
     this.codigo = codigo;
   }
 
@@ -148,18 +142,17 @@ class ComponenteCodigoFonte extends ComponentePagina {
     visitante.visitarComponenteCodigoFonte(this);
   }
 
-  getCodigo(): string {
+  getConteudo(): string {
     return this.codigo;
   }
 
   // Outros métodos...
 }
 
-class ComponenteImagem extends ComponentePagina {
+class ComponenteImagem implements ComponentePagina {
   private source: string;
 
   constructor(source: string) {
-    super();
     this.source = source;
   }
 
@@ -167,7 +160,7 @@ class ComponenteImagem extends ComponentePagina {
     visitante.visitarComponenteImagem(this);
   }
 
-  getSource(): string {
+  getConteudo(): string {
     return this.source;
   }
 
@@ -201,13 +194,13 @@ const exportadorPDF = new ExportadorPDF();
 
 const componentes = pagina.getComponentes();
 
-componentes.map((componente: Anfitriao) => {
+componentes.map((componente: ComponentePagina) => {
   componente.receberVisita(exportadorPDF);
 });
 
 // Repetimos o mesmo processo para exportar em DOC
 const exportadorDOC = new ExportadorDOC();
 
-componentes.map((componente: Anfitriao) => {
+componentes.map((componente: ComponentePagina) => {
   componente.receberVisita(exportadorDOC);
 });
