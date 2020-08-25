@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "decorator": "ts-node ./src/decorator/starbuzz",
+    "chain": "ts-node ./src/chain-of-responsability/discounts-calculator/",
     "strategy": "ts-node ./src/strategy/ducks-simulator/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts"
