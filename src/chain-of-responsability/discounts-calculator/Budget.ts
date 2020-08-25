@@ -17,4 +17,14 @@ export default class Budget {
 
     return nItems;
   }
+
+  getTotal(): number {
+    return this.items
+      .map((product: Product) => {
+        return product.price;
+      })
+      .reduce((prev: number, current: number) => {
+        return prev + current;
+      }, 0);
+  }
 }
