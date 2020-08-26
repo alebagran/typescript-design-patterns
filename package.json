@@ -20,7 +20,9 @@
     "url": "https://github.com/alebagran/typescript-design-patterns/issues"
   },
   "homepage": "https://github.com/alebagran/typescript-design-patterns#readme",
-  "dependencies": {},
+  "dependencies": {
+    "store": "^2.0.12"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",
