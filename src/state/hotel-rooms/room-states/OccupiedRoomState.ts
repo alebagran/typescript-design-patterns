@@ -3,6 +3,12 @@ import Room from "../Room";
 import AvailableRoomState from "./AvailableRoomState";
 
 export default class OccupiedRoomState implements RoomState {
+  available(room: Room): void {
+    throw new Error("Um quarto ocupado Só pode se tornar disponivel por checkout");
+  }
+  maintenance(room: Room): void {
+    throw new Error("Um quarto Ocupado não pode estar em Manutenção");
+  }
   getState(room: Room): string {
     return `O Quarto ${room.number} está Ocupado`;
   }

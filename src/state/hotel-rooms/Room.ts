@@ -20,6 +20,14 @@ export default class Room {
     this.roomState.checkin(this);
   }
 
+  public mantenance(): void {
+    this.roomState.maintenance(this);
+  }
+
+  public available(): void {
+    this.roomState.available(this);
+  }
+
   public checkout(daysOccupied: number): number {
     this.roomState.checkout(this);
 
@@ -28,7 +36,7 @@ export default class Room {
 
   /**
    * @description Só deve ser utilizada por roomstate
-   * @param state 
+   * @param state
    */
   public defineRoomState(state: RoomState): void {
     this.roomState = state;
