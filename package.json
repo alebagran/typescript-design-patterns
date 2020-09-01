@@ -4,6 +4,7 @@
   "description": "Design Patterns examples written in ts",
   "main": "index.js",
   "scripts": {
+    "state": "ts-node ./src/state/hotel-rooms",
     "decorator": "ts-node ./src/decorator/starbuzz",
     "chain": "ts-node ./src/chain-of-responsability/discounts-calculator/",
     "strategy": "ts-node ./src/strategy/ducks-simulator/",
