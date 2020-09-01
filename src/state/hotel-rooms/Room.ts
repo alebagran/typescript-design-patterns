@@ -12,6 +12,14 @@ export default class Room {
     this.roomState = new AvailableRoomState();
   }
 
+  public getRoomNumber(): string {
+    return this.number;
+  }
+
+  public getRoomSituation(): string {
+    return this.roomState.getState(this);
+  }
+
   public checkin(): void {
     this.roomState.checkin(this);
   }
@@ -23,6 +31,6 @@ export default class Room {
   }
 
   public defineRoomState(state: RoomState): void {
-    this.roomState = state
+    this.roomState = state;
   }
 }
