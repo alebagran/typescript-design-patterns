@@ -4,7 +4,7 @@ import AvailableRoomState from "./AvailableRoomState";
 
 export default class OccupiedRoomState implements RoomState {
   getState(room: Room): string {
-    return `O Quarto ${room.getRoomNumber()} está Ocupado`;
+    return `O Quarto ${room.number} está Ocupado`;
   }
   checkin(room: Room): void {
     throw new Error(

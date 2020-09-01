@@ -3,17 +3,13 @@ import AvailableRoomState from "./room-states/AvailableRoomState";
 
 // Estados: Disponivel, Ocupado
 export default class Room {
-  private roomState: RoomState;
+  protected roomState: RoomState;
   constructor(
-    private number: string,
-    private type: string,
-    private dailyRate: number,
+    readonly number: string,
+    readonly type: string,
+    readonly dailyRate: number,
   ) {
     this.roomState = new AvailableRoomState();
-  }
-
-  public getRoomNumber(): string {
-    return this.number;
   }
 
   public getRoomSituation(): string {
@@ -30,6 +26,10 @@ export default class Room {
     return daysOccupied * this.dailyRate;
   }
 
+  /**
+   * @description Só deve ser utilizada por roomstate
+   * @param state 
+   */
   public defineRoomState(state: RoomState): void {
     this.roomState = state;
   }
